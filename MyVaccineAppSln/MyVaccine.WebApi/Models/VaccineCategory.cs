@@ -1,11 +1,9 @@
-﻿using System.Reflection.PortableExecutable;
+﻿
+namespace MyVaccine.WebApi.Models;
 
-namespace MyVaccine.WebApi.Models
+public class VaccineCategory
 {
-    public class VaccineCategory
-    {
-        public int VaccineCategoryId { get; set; }
-        public string Name { get; set; }
-        public List<Vaccine> Vaccines { get; set; }
-    }
+    public int VaccineCategoryId { get; set; }
+    public string Name { get; set; }
+    public List<Vaccine> Vaccines { get; set; }
 }
