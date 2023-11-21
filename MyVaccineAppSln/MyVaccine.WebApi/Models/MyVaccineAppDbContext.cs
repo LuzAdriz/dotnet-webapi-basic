@@ -23,30 +23,21 @@ public class MyVaccineAppDbContext : IdentityDbContext<IdentityUser>
     {
         base.OnModelCreating(modelBuilder);
 
-        //modelBuilder.Entity<IdentityUser>()
-        //    .HasKey(u => u.Id);
-
-        //modelBuilder.Entity<IdentityRole>()
-        //    .HasKey(u => u.Id);
-
-        //modelBuilder.Entity<IdentityUserRole<string>>()
-        //    .HasKey(r => new { r.UserId, r.RoleId });
-
-        //modelBuilder.Entity<IdentityUserLogin<string>>()
-        //    .HasKey(l => new { l.LoginProvider, l.ProviderKey });
-
+        modelBuilder.Entity<User>()
+                 .HasOne(u => u.AspNetUser)
+                 .WithMany()
+                 .HasForeignKey(u => u.AspNetUserId);
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.Property(u => u.UserName)
+            entity.Property(u => u.FirstName)
                 .IsRequired()
                 .HasMaxLength(255);
-            entity.Property(u => u.Email)
+           
+            entity.Property(u => u.LastName)
                 .IsRequired()
                 .HasMaxLength(255);
-            entity.Property(u => u.Password)
-                .IsRequired()
-                .HasMaxLength(255);
+
         });
 
         modelBuilder.Entity<Dependent>(entity =>
@@ -54,19 +45,18 @@ public class MyVaccineAppDbContext : IdentityDbContext<IdentityUser>
             entity.Property(d => d.Name)
                 .IsRequired()
                 .HasMaxLength(255);
+
             entity.HasOne(d => d.User)
                 .WithMany(u => u.Dependents)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
-
         modelBuilder.Entity<VaccineCategory>(entity =>
         {
             entity.Property(vc => vc.Name)
-            .IsRequired()
+                .IsRequired()
                 .HasMaxLength(100);
         });
-
         modelBuilder.Entity<Vaccine>(entity =>
         {
             entity.Property(v => v.Name)
@@ -81,8 +71,10 @@ public class MyVaccineAppDbContext : IdentityDbContext<IdentityUser>
         {
             entity.Property(vr => vr.AdministeredLocation)
                 .HasMaxLength(255);
+
             entity.Property(vr => vr.AdministeredBy)
                 .HasMaxLength(255);
+
             entity.HasOne(vr => vr.User)
                 .WithMany(u => u.VaccineRecords)
                 .HasForeignKey(vr => vr.UserId)
@@ -91,23 +83,23 @@ public class MyVaccineAppDbContext : IdentityDbContext<IdentityUser>
                 .WithMany(d => d.VaccineRecords)
                 .HasForeignKey(vr => vr.DependentId)
                 .OnDelete(DeleteBehavior.Cascade);
+
             entity.HasOne(vr => vr.Vaccine)
                 .WithMany()
                 .HasForeignKey(vr => vr.VaccineId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
-
         modelBuilder.Entity<Allergy>(entity =>
         {
             entity.Property(a => a.Name)
                 .IsRequired()
                 .HasMaxLength(100);
+
             entity.HasOne(a => a.User)
                 .WithMany(u => u.Allergies)
                 .HasForeignKey(a => a.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
-
         modelBuilder.Entity<FamilyGroup>(entity =>
         {
             entity.Property(fg => fg.Name)
@@ -115,4 +107,5 @@ public class MyVaccineAppDbContext : IdentityDbContext<IdentityUser>
                 .HasMaxLength(255);
         });
     }
+    
 }
