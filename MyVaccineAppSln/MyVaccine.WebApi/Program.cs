@@ -1,10 +1,7 @@
-<<<<<<< Updated upstream
-=======
+
 
 using MyVaccine.WebApi.Configurations;
 
-
->>>>>>> Stashed changes
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
