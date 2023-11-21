@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.SetDatabaseConfiguration();
 builder.Services.SetMyVaccineAuthConfiguration();
-//builder.Services.SetDependencyInjection();
+builder.Services.SetDependencyInjection();
 
 var app = builder.Build();
 
@@ -23,12 +23,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
-
-
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
-
 app.Run();

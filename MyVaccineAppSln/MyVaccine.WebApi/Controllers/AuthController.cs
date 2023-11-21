@@ -27,7 +27,6 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterRequetDto model)
     {
-
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
@@ -37,8 +36,8 @@ public class AuthController : ControllerBase
         if (!result.Succeeded)
         {
             return BadRequest(result.Errors);
-
         }
+
         return Ok("User registered successfully");
     }
 
@@ -46,30 +45,32 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Login([FromBody] LoginRequestDto model)
     {
         var user = await _userManager.FindByNameAsync(model.Username);
+
         if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
         {
             var claims = new[]
             {
                     new Claim(ClaimTypes.Name, user.UserName)
             };
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable(MyVaccineLiterals.JWT_KEY)));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken
-            (
+            var token = new JwtSecurityToken(
                 //issuer: _configuration["JwtIssuer"],
                 //audience: _configuration["JwtAudience"],
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(15),
                 signingCredentials: creds
             );
+
             return Ok(new
             {
                 token = new JwtSecurityTokenHandler().WriteToken(token),
                 expiration = token.ValidTo
             });
         }
+
         return Unauthorized();
     }
-
 }
