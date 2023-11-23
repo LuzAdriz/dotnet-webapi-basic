@@ -1,7 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Azure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -19,6 +18,7 @@ namespace MyVaccine.WebApi.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IUserService _userService;
+
     public AuthController(UserManager<IdentityUser> userManager, IUserService userService)
     {
         _userService = userService;
@@ -27,7 +27,6 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterRequetDto model)
     {
-
         var response = await _userService.AddUserAsync(model);
         if (response.IsSuccess)
         {
@@ -35,7 +34,6 @@ public class AuthController : ControllerBase
         }
         else
         {
-
             return BadRequest(response);
         }
     }
@@ -52,8 +50,9 @@ public class AuthController : ControllerBase
         {
             return Unauthorized(response);
         }
-    }
 
+
+    }
 
     [Authorize]
     [HttpPost("refresh-token")]
@@ -69,5 +68,15 @@ public class AuthController : ControllerBase
         {
             return Unauthorized(response);
         }
+    }
+
+    [Authorize]
+    [HttpGet("user-info")]
+    public async Task<IActionResult> GetUserInfo()
+    {
+        var claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+        var response = await _userService.GetUserInfo(claimsIdentity.Name);
+
+        return Ok(response);
     }
 }

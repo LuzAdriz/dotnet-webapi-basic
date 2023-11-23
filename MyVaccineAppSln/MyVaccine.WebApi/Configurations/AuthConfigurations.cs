@@ -5,8 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using MyVaccine.WebApi.Literals;
 using MyVaccine.WebApi.Models;
 
-
 namespace MyVaccine.WebApi.Configurations;
+
 public static class AuthConfigurations
 {
     public static IServiceCollection SetMyVaccineAuthConfiguration(this IServiceCollection services)
@@ -19,11 +19,13 @@ public static class AuthConfigurations
             options.Password.RequiredLength = 8;
             options.User.RequireUniqueEmail = false;
             options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+
             //options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
             //options.Lockout.MaxFailedAccessAttempts = 5;
         }
         ).AddEntityFrameworkStores<MyVaccineAppDbContext>()
         .AddDefaultTokenProviders();
+
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -45,4 +47,3 @@ public static class AuthConfigurations
         return services;
     }
 }
-       
