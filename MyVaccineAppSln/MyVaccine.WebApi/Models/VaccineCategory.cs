@@ -1,8 +1,6 @@
-﻿using System.Reflection.PortableExecutable;
-
-namespace MyVaccine.WebApi.Models
+﻿namespace MyVaccine.WebApi.Models
 {
-    public class VaccineCategory
+    public class VaccineCategory : BaseTable
     {
         public int VaccineCategoryId { get; set; }
         public string Name { get; set; }

@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using MyVaccine.WebApi.Dtos.Allergy;
 using MyVaccine.WebApi.Dtos.FamilyGroup;
 using MyVaccine.WebApi.Services.Contracts;
 

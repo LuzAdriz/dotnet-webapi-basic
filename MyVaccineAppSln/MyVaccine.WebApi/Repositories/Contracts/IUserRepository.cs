@@ -2,9 +2,11 @@
 using MyVaccine.WebApi.Dtos;
 using MyVaccine.WebApi.Models;
 
-namespace MyVaccine.WebApi.Repositories.Contracts;
-
-public interface IUserRepository : IBaseRepository<User>
+namespace MyVaccine.WebApi.Repositories.Contracts
 {
-    Task<IdentityResult> AddUser(RegisterRequetDto request);
+    public interface IUserRepository : IBaseRepository<User>
+
+    {
+        Task<IdentityResult> AddUser(RegisterRequetDto request);
+    }
 }

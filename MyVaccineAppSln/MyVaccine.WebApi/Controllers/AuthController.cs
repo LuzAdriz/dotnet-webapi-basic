@@ -1,16 +1,11 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿
 using System.Security.Claims;
-using System.Text;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using MyVaccine.WebApi.Dtos;
-using MyVaccine.WebApi.Literals;
-using MyVaccine.WebApi.Repositories.Contracts;
-using MyVaccine.WebApi.Repositories.Implementations;
 using MyVaccine.WebApi.Services.Contracts;
+
 
 namespace MyVaccine.WebApi.Controllers;
 [Route("api/[controller]")]
@@ -53,6 +48,7 @@ public class AuthController : ControllerBase
 
 
     }
+
 
     [Authorize]
     [HttpPost("refresh-token")]

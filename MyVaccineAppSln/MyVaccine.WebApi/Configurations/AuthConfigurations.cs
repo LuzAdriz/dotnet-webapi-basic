@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using MyVaccine.WebApi.Literals;
 using MyVaccine.WebApi.Models;
 
+
 namespace MyVaccine.WebApi.Configurations;
 
 public static class AuthConfigurations
@@ -37,7 +38,7 @@ public static class AuthConfigurations
                 ValidateIssuer = false,
                 ValidateAudience = false,
                 ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
+                ValidateIssuerSigningKey = false,
                 //ValidIssuer = "tu_issuer",
                 //ValidAudience = "tu_audience",
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable(MyVaccineLiterals.JWT_KEY))),

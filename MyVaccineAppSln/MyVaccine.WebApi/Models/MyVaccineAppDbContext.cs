@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
 
 namespace MyVaccine.WebApi.Models;
 
@@ -33,11 +32,10 @@ public class MyVaccineAppDbContext : IdentityDbContext<IdentityUser>
             entity.Property(u => u.FirstName)
                 .IsRequired()
                 .HasMaxLength(255);
-           
+
             entity.Property(u => u.LastName)
                 .IsRequired()
                 .HasMaxLength(255);
-
         });
 
         modelBuilder.Entity<Dependent>(entity =>
@@ -51,17 +49,20 @@ public class MyVaccineAppDbContext : IdentityDbContext<IdentityUser>
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
+
         modelBuilder.Entity<VaccineCategory>(entity =>
         {
             entity.Property(vc => vc.Name)
                 .IsRequired()
                 .HasMaxLength(100);
         });
+
         modelBuilder.Entity<Vaccine>(entity =>
         {
             entity.Property(v => v.Name)
                 .IsRequired()
                 .HasMaxLength(255);
+
             entity.HasMany(v => v.Categories)
                 .WithMany(vc => vc.Vaccines)
                 .UsingEntity(j => j.ToTable("VaccineCategoryVaccines"));
@@ -89,6 +90,7 @@ public class MyVaccineAppDbContext : IdentityDbContext<IdentityUser>
                 .HasForeignKey(vr => vr.VaccineId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
+
         modelBuilder.Entity<Allergy>(entity =>
         {
             entity.Property(a => a.Name)
@@ -100,6 +102,7 @@ public class MyVaccineAppDbContext : IdentityDbContext<IdentityUser>
                 .HasForeignKey(a => a.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
+
         modelBuilder.Entity<FamilyGroup>(entity =>
         {
             entity.Property(fg => fg.Name)
@@ -107,5 +110,4 @@ public class MyVaccineAppDbContext : IdentityDbContext<IdentityUser>
                 .HasMaxLength(255);
         });
     }
-    
 }

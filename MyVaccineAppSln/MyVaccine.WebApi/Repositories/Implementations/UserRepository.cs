@@ -21,7 +21,7 @@ public class UserRepository : BaseRepository<User>, IUserRepository
         var response = new IdentityResult();
         using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
         {
-            var user = new ApplicationUser
+            var user = new AplicationUser
             {
                 UserName = request.Username.ToLower(),
                 Email = request.Username

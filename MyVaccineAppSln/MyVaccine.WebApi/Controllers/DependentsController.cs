@@ -1,10 +1,8 @@
-﻿using System.Security.AccessControl;
+﻿
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyVaccine.WebApi.Dtos.Dependent;
-using MyVaccine.WebApi.Models;
 using MyVaccine.WebApi.Services.Contracts;
 
 namespace MyVaccine.WebApi.Controllers;
@@ -86,4 +84,5 @@ public class DependentsController : ControllerBase
 
         return Ok(dependent);
     }
+
 }

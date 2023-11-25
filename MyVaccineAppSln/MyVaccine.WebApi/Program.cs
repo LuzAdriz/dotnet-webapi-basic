@@ -1,7 +1,7 @@
 
-using System.Reflection;
 using FluentValidation.AspNetCore;
 using MyVaccine.WebApi.Configurations;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,11 +11,11 @@ builder.Services.AddControllers().AddFluentValidation(fv => fv.RegisterValidator
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 builder.Services.SetDatabaseConfiguration();
 builder.Services.SetMyVaccineAuthConfiguration();
 builder.Services.SetDependencyInjection();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
 
 var app = builder.Build();
 
@@ -30,6 +30,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 
